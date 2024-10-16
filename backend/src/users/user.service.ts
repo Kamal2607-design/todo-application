@@ -16,6 +16,9 @@ export class UserService {
     const user = this.usersRepository.create(createUserDto);
     return this.usersRepository.save(user);
   }
+  async findByMobile(mobile: string): Promise<User | null> {
+    return await this.usersRepository.findOne({ where: { mobile } });
+  }
 
   findAll(): Promise<User[]> {
     return this.usersRepository.find();
