@@ -2,7 +2,6 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import React from 'react';
-import styles from './register.module.css';
 
 
 interface IFormInput {
@@ -43,30 +42,28 @@ const Register = () => {
 
   return (
     <div className="container-center">
-  <div className={styles.formContainer}>
-
-    
-    <form className={styles.registerForm} onSubmit={handleSubmit(onSubmit)}>
+  <div className="form-container">
+    <h1>Welcome</h1>
     <h2 className='register'>Register</h2>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <label className='text-primary'>Name</label>
+        <label>Name</label>
         <input
           {...register('name', { required: true })}
-          className={styles.inputField}
-          
+          className="input-field"
           placeholder="Name"
         />
-        {errors.name && <span className={styles.errormessage}>Name is required</span>}
+        {errors.name && <span className="error-message">Name is required</span>}
       </div>
 
       <div>
         <label>Mobile</label>
         <input
           {...register('mobile', { required: true })}
-          className={styles.inputField}
+          className="input-field"
           placeholder="Mobile"
         />
-        {errors.mobile && <span className={styles.errormessage}>Mobile is required</span>}
+        {errors.mobile && <span className="error-message">Mobile is required</span>}
       </div>
 
       <div>
@@ -76,7 +73,7 @@ const Register = () => {
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
-        {errors.gender && <span className={styles.errormessage}>Gender is required</span>}
+        {errors.gender && <span className="error-message">Gender is required</span>}
       </div>
 
       <div>
@@ -86,14 +83,14 @@ const Register = () => {
           <option value="Sri Lanka">Sri Lanka</option>
           <option value="Japan">Japan</option>
         </select>
-        {errors.country && <span className={styles.errormessage}>Country is required</span>}
+        {errors.country && <span className="error-message">Country is required</span>}
       </div>
 
       <div>
         <label>Hobbies</label>
         <input
           {...register('hobbies')}
-          className={styles.inputField}
+          className="input-field"
           placeholder="Hobbies (comma separated)"
         />
       </div>
@@ -102,10 +99,10 @@ const Register = () => {
         <label>Email</label>
         <input
           {...register('email', { required: true })}
-          className={styles.inputField}
+          className="input-field"
           placeholder="Email"
         />
-        {errors.email && <span className={styles.errormessage}>Email is required</span>}
+        {errors.email && <span className="error-message">Email is required</span>}
       </div>
 
       <div>
@@ -113,21 +110,20 @@ const Register = () => {
         <input
           type="password"
           {...register('password', { required: true })}
-          className={styles.inputField}
+          className="input-field"
           placeholder="Password"
         />
-        {errors.password && <span className={styles.errormessage}>Password is required</span>}
+        {errors.password && <span className="error-message">Password is required</span>}
       </div>
 
-      <button className={styles.submitButton} type="submit">Register</button>
-      <div>
+      <button type="submit">Register</button>
+    </form>
+
+    <div className="text-center">
       <p>
         Already have an account? <Link href="/login" className="text-link">Login</Link>
       </p>
     </div>
-    </form>
-
-    
   </div>
 </div>
 

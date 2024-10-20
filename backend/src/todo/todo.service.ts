@@ -36,4 +36,10 @@ export class TodoService {
     await this.todoRepository.save(todo);
     return todo;
 }
+async delete(id: string): Promise<void> {
+  const result = await this.todoRepository.delete(id);
+  if (result.affected === 0) {
+    throw new NotFoundException('To-Do not found');
+  }
+}
 }

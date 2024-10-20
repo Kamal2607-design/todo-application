@@ -1,0 +1,65 @@
+.containerCenter {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Adjusts alignment to the top so content starts at the top */
+  height: 100vh;
+  overflow-y: auto; /* Enables scrolling when content exceeds viewport height */
+  padding: 1rem;
+}
+
+.listContainer {
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 100vh;
+  overflow-y: auto; /* Ensures the list scrolls if content is too long */
+}
+
+.selectField {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.todoList {
+  list-style: none;
+  padding: 0;
+}
+
+.todoItem {
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+.todoTitle {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.todoDescription {
+  margin-bottom: 0.5rem;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 0.5rem; 
+}
+
+.updateButton, .deleteButton {
+  padding: 0.5rem;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.updateButton:hover, .deleteButton:hover {
+  background-color: #005bb5;
+}

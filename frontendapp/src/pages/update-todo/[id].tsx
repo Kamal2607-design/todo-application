@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import styles from './update-todo.module.css';
 
 interface Todo {
   id: number;
@@ -49,18 +50,24 @@ const UpdateTodo = () => {
   if (!todo) return <p>Loading...</p>;
 
   return (
-    <div>
-      <h1>Update To-Do</h1>
-      <p>Task: {todo.name || 'N/A'}</p>
-      <p>Description: {todo.description || 'N/A'}</p>
-      <p>Current Status: {todo.status || 'N/A'}</p>
-
-      <select value={status} onChange={(e) => setStatus(e.target.value)}>
-        <option value="in progress">In Progress</option>
-        <option value="completed">Completed</option>
-      </select>
-
-      <button onClick={updateStatus}>Update Status</button>
+    <div className={styles.containerCenter}>
+      <div className={styles.formContainer}>
+        <h1>Update To-Do</h1>
+        <p>Task: {todo.name || 'N/A'}</p>
+        <p>Description: {todo.description || 'N/A'}</p>
+        <p>Current Status: {todo.status || 'N/A'}</p>
+        <select
+          className={styles.selectField}
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+        >
+          <option value="in progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+        <button className={styles.updateButton} onClick={updateStatus}>
+          Update Status
+        </button>
+      </div>
     </div>
   );
 };
