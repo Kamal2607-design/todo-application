@@ -1,20 +1,26 @@
-import { Controller, Post, Body, Get, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Patch, Param, Delete, Query } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './create-todo.dto';
 import { Todo } from './todo.entity';
+import { InternalServerErrorException } from '@nestjs/common';
+
+
+
 
 @Controller('todos')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Post()
-  create(@Body() createTodoDto: CreateTodoDto) {
-    return this.todoService.create(createTodoDto);
+async create(@Body() createTodoDto: CreateTodoDto): Promise<Todo> {
+  try {
+    console.log('Received data:', createTodoDto);  // Log the incoming request body
+    return await this.todoService.create(createTodoDto);
+  } catch (error) {
+    console.error('Error creating To-Do:', error);  // Log error details
+    throw new InternalServerErrorException('Failed to create to-do');
   }
-  @Get()
-  getAllTodos(): Promise<Todo[]> {
-  return this.todoService.findAll();
-  }
+}
 
   @Get(':id')
   async getTodoById(@Param('id') id: string): Promise<Todo> {
@@ -33,5 +39,19 @@ async updateTodoStatus(
 ): Promise<Todo> {
   return this.todoService.updateStatus(id, status);
 }
+
+@Get()
+getAllTodos(
+  @Query('page') page: number = 1, 
+  @Query('limit') limit: number = 5
+): Promise<{ data: Todo[], lastPage: number }> {
+  page = Number(page);  
+  limit = Number(limit); 
+  const todos = this.todoService.findAllPaginated(page, limit);
+  return todos;
+}
+
+
+
 }
 

@@ -1,19 +1,16 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('todo')
-export class Todo {
+@Entity('tags')
+export class Tag{
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
 
-  @Column()
-  description: string;
+  @Column({nullable:true})
+  age: number;
 
-  @Column()
-  time: string;
-
-  @Column()
-  status: string;
+  @Column({nullable:true})
+  interest: string;
 }

@@ -63,3 +63,32 @@
 .updateButton:hover, .deleteButton:hover {
   background-color: #005bb5;
 }
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.paginationButton {
+  background-color: #007bff; /* Same color as your existing buttons */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.paginationButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pageIndicator {
+  display: inline-block;
+  padding: 8px 16px;
+  line-height: 1;
+  margin: 0 10px;
+  font-weight: bold;
+}
+

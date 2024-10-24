@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException,InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Todo } from './todo.entity';
 import { CreateTodoDto } from './create-todo.dto';
+
 
 @Injectable()
 export class TodoService {
@@ -11,13 +12,16 @@ export class TodoService {
     private todoRepository: Repository<Todo>,
   ) {}
 
-  create(createTodoDto: CreateTodoDto): Promise<Todo> {
-    const todo = this.todoRepository.create(createTodoDto);
-    return this.todoRepository.save(todo);
+  async create(createTodoDto: CreateTodoDto): Promise<Todo> {
+    try {
+      const todo = this.todoRepository.create(createTodoDto);
+      return await this.todoRepository.save(todo);  // Ensure successful save to the DB
+    } catch (error) {
+      console.error('Error saving To-Do to the database:', error);  // Log the error
+      throw new InternalServerErrorException('Failed to save To-Do');
+    }
   }
-  findAll(): Promise<Todo[]> {
-    return this.todoRepository.find();
-  }
+  
 
   async findOne(id: string): Promise<Todo> {
     const todo = await this.todoRepository.findOne({ where: { id: parseInt(id) } });
@@ -42,4 +46,23 @@ async delete(id: string): Promise<void> {
     throw new NotFoundException('To-Do not found');
   }
 }
+async findAllPaginated(page: number, limit: number): Promise<{ data: Todo[], lastPage: number }> {
+  page = isNaN(page) || page < 1 ? 1 : page; 
+  limit = isNaN(limit) || limit < 1 ? 5 : limit; 
+  
+  const [result, total] = await this.todoRepository
+    .createQueryBuilder('todo')
+    .skip((page - 1) * limit)  
+    .take(limit)  
+    .getManyAndCount();
+    
+  return {
+    data: result,
+    lastPage: Math.ceil(total / limit)
+  };
+}
+
+
+
+
 }

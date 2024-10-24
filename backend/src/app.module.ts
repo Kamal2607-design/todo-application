@@ -9,6 +9,9 @@ import { UserModule } from 'users/user.module';
 import { AuthModule } from './auth/auth.module'; 
 import { TodoModule } from './todo/todo.module';
 import { Todo } from './todo/todo.entity';
+import { TagModule } from 'tags/tags.module';
+import { Tag } from 'tags/tags.entity';
+
 
 @Module({
   imports: [
@@ -19,14 +22,15 @@ import { Todo } from './todo/todo.entity';
       username: 'postgres',
       password: 'Kamalesh',
       database: 'todo-app',
-      entities: [User,Todo],
+      entities: [User,Todo,Tag],
       synchronize: true,
       logging: true,
     }),
     TypeOrmModule.forFeature([User]),
     UserModule,
     AuthModule,
-    TodoModule
+    TodoModule,
+    TagModule
   ],
   controllers: [AppController, UserController],
   providers: [AppService, UserService],
